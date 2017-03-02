@@ -17,22 +17,45 @@
      end
    end
    
-   describe "#add_entry" do
-     it "adds only one entry to the address book" do
+   let(:book1) do
        book = AddressBook.new
        book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
- 
-       expect(book.entries.size).to eq(1)
+       book
+   end
+   
+    let(:book2) do
+       book = AddressBook.new
+       book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
+      book.add_entry('Charles Babbage', '607.222.3333', 'chuck-b@babbage.com')
+       book
+   end
+
+   describe "#add_entry" do
+     it "adds only one entry to the address book" do
+       expect(book1.entries.size).to eq(1)
      end
  
      it "adds the correct information to entries" do
-       book = AddressBook.new
-       book.add_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
-       new_entry = book.entries[0]
+       new_entry = book1.entries[0]
  
        expect(new_entry.name).to eq('Ada Lovelace')
        expect(new_entry.phone_number).to eq('010.012.1815')
        expect(new_entry.email).to eq('augusta.king@lovelace.com')
      end
    end
+   
+   describe "#remove_entry" do
+     it "removes only one entry to the address book" do
+       book2.remove_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
+       expect(book2.entries.size).to eq(1)
+     end
+ 
+     it "removes the correct information to entries" do
+        book2.remove_entry('Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
+       first_entry = book2.entries[0]
+       expect(first_entry.name).to eq('Charles Babbage')
+     end
+   end
+   
+   
  end
