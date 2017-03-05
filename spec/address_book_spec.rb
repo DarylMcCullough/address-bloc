@@ -35,7 +35,7 @@
      end
    end
    
-      # Test that AddressBook's .import_from_csv() method is working as expected
+   # Test that AddressBook's .import_from_csv() method is working as expected
    describe "#import_from_csv" do
      it "imports the correct number of entries" do
        # #3
@@ -83,5 +83,41 @@
        check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
      end
    end
+   
+    describe "#import_from_csv_2" do
+     it "imports the correct number of entries" do
+       # #3
+       book.import_from_csv("entries_2.csv")
+       book_size = book.entries.size
+
+       # Check the size of the entries in AddressBook
+       expect(book_size).to eq 3
+     end
+     
+     it "imports the 1st entry" do
+       book.import_from_csv("entries_2.csv")
+       # Check the first entry
+       entry_one = book.entries[0]
+ 
+       # #5
+       check_entry(entry_one, "Buffy", "123-446-7890", "bsummers@blocmail.com")
+     end
+
+        it "imports the 2nd entry" do
+       book.import_from_csv("entries_2.csv")
+       # Check the second entry
+       entry_two = book.entries[1]
+       check_entry(entry_two, "Willow", "234-567-8901" , "wrosenberg@blocmail.com")
+     end
+ 
+     it "imports the 3rd entry" do
+       book.import_from_csv("entries_2.csv")
+       # Check the third entry
+       entry_three = book.entries[2]
+       check_entry(entry_three, "Xander", "345-678-9012", "xharris@blocmail.com")
+     end
+   end
+   
+   
    
  end
