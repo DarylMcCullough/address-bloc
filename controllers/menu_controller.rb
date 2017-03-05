@@ -129,7 +129,7 @@ end
         puts entry.to_s
         
         puts "(Hit Return to return to the main menu)"
-        gets # Don't clear untile user hits enter
+        gets # Don't clear until user hits enter
         system "clear"
     end
 
