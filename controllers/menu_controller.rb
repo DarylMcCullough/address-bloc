@@ -13,10 +13,11 @@ end
    
    def initialize
      @address_book = AddressBook.new
+     @populated = false
    end
    
    def populate # I added this to create some sample data for viewing
-    return if defined? @populated
+    return if @populated
     (1..NUMBER_ENTRIES).each do |i|
       name = NAMES[i-1]
       email = EMAILS[i-1]
@@ -28,14 +29,14 @@ end
       
  
    def main_menu
-     # #2
      puts "Main Menu - #{address_book.entries.count} entries"
-     puts "0 - Populate with sample data" unless defined? @populated # I added this for sample data
+     puts "0 - Populate with sample data" unless @populated # I added this for sample data
      puts "1 - View all entries"
      puts "2 - View entry by entry number"
      puts "3 - Create an entry"
      puts "4 - Search for an entry"
      puts "5 - Import entries from a CSV"
+     puts "72 - Delete all entries"
      puts "6 - Exit"
 
      print "Enter your selection: "
@@ -73,6 +74,13 @@ end
          puts "Good-bye!"
          # #8
          exit(0)
+       when 72
+         puts "Remove everything? If you say so..."
+         puts "Hit 'Enter' to continue, or 'c' to cancel"
+         selection = gets.chomp
+         nukem_all unless selection == 'c'
+         system "clear"
+         main_menu
        # #9
        else
          system "clear"
@@ -192,6 +200,11 @@ end
    def delete_entry(entry)
      address_book.entries.delete(entry)
      puts "#{entry.name} has been deleted"
+   end
+   
+   def nukem_all
+    address_book.entries.clear
+    @populated = false
    end
    
    def edit_entry(entry)
