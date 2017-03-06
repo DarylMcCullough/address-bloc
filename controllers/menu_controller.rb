@@ -203,7 +203,7 @@ end
    end
    
    def nukem_all
-    address_book.entries.clear
+    address_book.nukem_all
     @populated = false
    end
    

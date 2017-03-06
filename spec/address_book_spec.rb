@@ -1,6 +1,21 @@
  require_relative '../models/address_book'
  
  RSpec.describe AddressBook do
+  
+  let(:sample_data) do
+    book = AddressBook.new
+    NAMES = [ "Ada Lovelace", "Charles Babbage", "Alan Turing"]
+    PHONES = [ "(234) 567-8901", "(345) 678-9012", "(456) 789-0123"]
+    EMAILS = [ "ada_l@lovelace.net", "chuck_b@babbage.net", "turing@universal.com"]
+    (0...NAMES.length).each do |i|
+      name = NAMES[i]
+      phone = PHONES[i]
+      email = EMAILS[i]
+      book.add_entry(name,phone,email)
+     end
+     return book
+  end
+  
   let(:book) { AddressBook.new }
   
    def check_entry(entry, expected_name, expected_number, expected_email)
@@ -35,6 +50,12 @@
      end
    end
    
+   describe "#nukem_all" do
+      it "removes all entries" do
+       expect(sample_data.nukem_all.entries.size).to eq(0)
+      end
+     end
+
       # Test that AddressBook's .import_from_csv() method is working as expected
    describe "#import_from_csv" do
      it "imports the correct number of entries" do

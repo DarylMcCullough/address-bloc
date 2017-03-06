@@ -7,6 +7,10 @@
        @entries = []
    end
 
+    def nukem_all
+        entries.clear
+    end
+
    def add_entry(name, phone_number, email)
      # #9
      index = 0
